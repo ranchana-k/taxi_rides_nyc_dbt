@@ -205,6 +205,10 @@ models:
   - name: stg_fhv_tripdata
     description: ""
     columns:
+      - name: trip_id
+        data_type: string
+        description: ""
+        
       - name: dispatching_base_num
         data_type: string
         description: ""
