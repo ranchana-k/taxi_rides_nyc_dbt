@@ -1,6 +1,7 @@
 {{ config(materialized="view") }}
 with trip_data as (
     select 
+    {{ dbt_utils.generate_surrogate_key(['dispatching_base_num', 'pickup_datetime']) }} as trip_id,
     dispatching_base_num,
     {{ dbt.safe_cast("pickup_datetime", api.Column.translate_type("timestamp")) }} as pickup_datetime,
     {{ dbt.safe_cast("dropoff_datetime", api.Column.translate_type("timestamp")) }} as dropoff_datetime,
