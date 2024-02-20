@@ -1,5 +1,11 @@
 {{ config(materialized= "view")}}
 
+with trip_data as (
+    select *, row_number() over (partition by vendor_id, pickup_datetime) as rn
+    from {{ source('staging', 'green_tripdata') }}
+    where vendor_id is not null
+)
+
 select 
 -- identifiers
     {{ dbt_utils.generate_surrogate_key(['vendor_id','pickup_datetime']) }} as tripid,
@@ -29,8 +35,8 @@ select
     cast(total_amount as numeric) as total_amount,
     {{ dbt.safe_cast("payment_type", api.Column.translate_type("integer")) }} as payment_type,
     {{ get_payment_type_description("payment_type") }} as payment_type_description
-from {{ source('staging', 'green_tripdata') }}
-where vendor_id is not null
+from trip_data
+where rn = 1 
 {% if var('is_test_run', default=true) %} 
 limit 100
 {% endif %}
