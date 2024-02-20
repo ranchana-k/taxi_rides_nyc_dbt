@@ -127,3 +127,49 @@ models:
       - name: service_zone
         data_type: string
         description: ""
+  - name: fact_fhv_trips
+    description: "The Trips For-Hire Vehicles in New York "
+    columns:
+      - name: dispatching_base_num
+        data_type: string
+        description: "The TLC Base License Number of the base that dispatched the trip"
+
+      - name: pickup_datetime
+        data_type: timestamp
+        description: "The datetime of trip pick-up"
+
+      - name: dropoff_datetime
+        data_type: timestamp
+        description: "The datetime of trip drop-off"
+
+      - name: pickup_location_id
+        data_type: int64
+        description: "The location id of pickup location"
+
+      - name: dropoff_location_id
+        data_type: int64
+        description: "The location id of dropo-off location"
+
+      - name: sr_flag
+        data_type: int64
+        description: "Indicates if the trip was a part of a shared ride chain offered by a High Volume FHV company (e.g. Uber Pool, Lyft Line)."
+
+      - name: affiliated_base_number
+        data_type: string
+        description: ""
+
+      - name: pickup_borough
+        data_type: string
+        description: "The town of trip pick-up"
+
+      - name: pickup_zone
+        data_type: string
+        description: "The zone of trip pick-up"
+
+      - name: dropoff_borough
+        data_type: string
+        description: "The town of trip drop-off"
+
+      - name: dropoff_zone
+        data_type: string
+        description: "The zone of trip drop-off"
